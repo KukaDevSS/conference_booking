@@ -7,4 +7,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import "bootstrap-icons/font/bootstrap-icons.css";
 import axios  from 'axios'
 
+// Vue.config.productionTip = false;
+
 createApp(App).use(router).mount('#app')

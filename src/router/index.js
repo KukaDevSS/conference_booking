@@ -21,8 +21,16 @@ const routes = [
   {
     path: '/dashboard', // Use a dynamic parameter
     name: 'dashboard',
-    component: () => import('../pages/Dashbroad.vue')
+    component: () => import('../components/Dashbroad.vue'),
+    children: [
+      {
+        path: '/add-room', // Use a dynamic parameter
+        name: 'addroom',
+        component: () => import('../components/CreateRoom.vue')
+      },
+    ]
   },
+  
   
   // {
   //   path: '/room',

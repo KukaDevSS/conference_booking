@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container vh-100 my-auto d-flex align-items-center">
     <form @submit.prevent="submitForm" action="" class="w-50 mx-auto py-2 px-5 bg-light shadow-lg">
         <div>
             <p class="text-center text-primary fw-bold">Booking Form.</p>
@@ -55,8 +55,13 @@
             <label for="">ເບີໂທລະສັບ</label>
             <input v-model="bookPhone" type="text" class="form-control" required>
         </div>
-        <div class="my-4">
+        <div class="row justify-content-center">
+          <div class="my-2 col-6">
+              <button @click="goBackAndReload" type="button" class="btn btn-danger w-100">ຍົກເລີກ</button>
+          </div>
+          <div class="mt-2 col-6">
             <button type="submit" class="btn btn-primary w-100">ສ້າງການຈອງ</button>
+          </div>
         </div>
     </form>
   </div>
@@ -130,7 +135,7 @@ export default {
       };
 
       try {
-        const response = await fetch('http://172.22.4.91:3000/booking/create', {
+        const response = await fetch('http://172.22.3.147:3000/booking/create', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -157,6 +162,14 @@ export default {
         console.error('Error posting data:', error);
       }
     },
+    goBackAndReload() {
+      window.history.back();
+      
+      // Set a delay before reloading the page
+      setTimeout(() => {
+        location.reload();
+      }, 300);
+    }
   },
 }
 </script>

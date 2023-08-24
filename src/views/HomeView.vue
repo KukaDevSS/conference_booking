@@ -3,9 +3,9 @@
   <div>
     <div class="bg-primary py-2 d-flex ps-5 fixed-top justify-content-between align-items-center">
       <div>
-        <p class="text-white fw-bold m-0" style="font-size: 18px;">conference booking</p>    
+        <p class="text-white fw-bold m-0 text-uppercase" style="font-size: 18px;">conference booking</p>    
       </div>
-      <button class="btn btn-warning me-5" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">ເຂົ້າສູ່ລະບົບ</button>
+      <button class="btn btn-light me-5" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i class="bi bi-box-arrow-in-right pe-2"></i>ເຂົ້າສູ່ລະບົບ</button>
     </div>
   </div>
   <div class="container mx-auto mt-5">

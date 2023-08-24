@@ -51,7 +51,7 @@
                     <td>{{ event.name }} </td>
                     <td>{{ event.phone }}</td>
                     <td>
-                      <button class="btn btn-danger me-2" @click="showDeleteConfirmation(event.phone)"><i class="bi bi-trash3"></i></button>
+                      <button class="btn btn-danger me-2" @click="showDeleteConfirmation(event._id)"><i class="bi bi-trash3"></i></button>
                       <button class="btn btn-success"><i class="bi bi-pencil-square"></i></button>
                     </td>
                   </template>
@@ -123,7 +123,7 @@ export default {
     this.fetchApiData();
   },
   methods: {
-    showDeleteConfirmation(phoneNumber) {
+    showDeleteConfirmation(id) {
       Swal.fire({
         title: 'ເຈົ້າຕ້ອງການທີ່ຈະລຶບມັນ ຫຼື ບໍ່?',
         // text: '!',
@@ -133,7 +133,7 @@ export default {
         cancelButtonText: 'ຍົກເລີກ',
       }).then((result) => {
         if (result.isConfirmed) {
-          this.deleteEvent(phoneNumber);
+          this.deleteEvent(id);
         }
       });
     },
@@ -160,7 +160,7 @@ export default {
     },
     // get data form api
     fetchApiData() {
-      axios.get(`http://172.22.4.91:3000/booking/room/${this.roomNumber}/active`)
+      axios.get(`http://172.22.3.147:3000/booking/room/${this.roomNumber}/active`)
       .then((response) => {
         this.apiData = response.data;
       }).catch((err) => {
@@ -170,8 +170,8 @@ export default {
       this.updateCardData();
     },
     // delete data form api
-    deleteEvent(phoneNumber) {
-      fetch(`http://172.22.4.91:3000/booking/cancel/${phoneNumber}`, {
+    deleteEvent(id) {
+      fetch(`http://172.22.3.147:3000/booking/cancel/${id}`, {
         method: 'PUT'
       })
       .then(response => response.json())
