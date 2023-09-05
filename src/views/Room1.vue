@@ -3,18 +3,25 @@
     <div class="row">
       <div class=" col-lg-3">
         <div class="calendar-container fixed-top" style="height: 100vh; margin-top: 0px; background-color: beige;">
-          <div class="d-flex pt-4">
+          <div class=" ">
             <router-link to="/"><button class="btn btn-warning"><i class="bi bi-arrow-left-circle me-1"></i>ໜ້າຫຼັກ</button></router-link>
-            <p class="ms-4 fs-3 fw-bold text-center">ຫ້ອງປະຊຸມເບີ {{ roomNumber }}</p>
+            <div class="mt-4 ms-0 p-0">
+              <ul class="m-0 p-0">
+                <li class="fw-bolder pt-2 m-0 list-unstyled text-center" style="font-size: 30px;">{{ apiData.length > 0 ? apiData[0].room_title : '' }}</li>
+                <!-- <li class="fw-bolder pt-2 m-0 list-unstyled text-center" style="font-size: 30px;">
+                  {{ apiData.length > 0 ? apiData[0].room_title : 'No Room Title Available' }}
+                </li> -->
+              </ul>
+            </div>
           </div>
           <div>
-            <router-link to="/room1/bookform"><button class="btn btn-primary w-100 mt-5">ຈອງຫ້ອງປະຊຸມ</button></router-link>
+            <router-link :to="`/form/${roomNumber}`"><button class="btn btn-primary w-100 mt-3">ຈອງຫ້ອງປະຊຸມ</button></router-link>
             <div ref="calendar" class="w-100" style="margin-top: 43px;"></div>
             <button class="btn btn-warning mt-4 w-100" @click="setToDateNow">Today</button>
           </div>
         </div>
       </div>
-      <div class="col-lg-9 mt-2" ref="cardContainer">
+      <div class="col-lg-9 mt-4" ref="cardContainer">
         <!-- <div class="border my-2 rounded"  :class="{ 'highlighted-card': isSameDate(date, new Date()), 'non-matching-card': !isSameDate(date, new Date()) }"  v-for="date in monthDates" :key="date"> -->
           <div class="border my-2 rounded" :class="{ 'highlighted-card': isSameDate(date, new Date()), 'non-matching-card': !isSameDate(date, new Date()) }" v-for="date in futureMonthDates" :key="date">
           <div class="d-flex align-items-center mb-3 mt-2">
@@ -24,8 +31,8 @@
                 <p class="m-0">{{ date.toLocaleString('en-US', { month: 'long', year: 'numeric' }) }}</p>
               </div>
           </div>
-          <div class="container">
-            <table class="table table-bordered table-hover">
+          <div class="container-fluid">
+            <table class="table table-bordered table-hover w-100 bg-light">
               <thead class="">
                 <tr class="text-center" style="font-size: 14px;">
                   <th>ວັນ,ເດືອນ,ປີ</th>
@@ -34,7 +41,7 @@
                   <th>ພະແນກ / ບໍລິສັດ</th>
                   <th>ຊື່ ແລະ ນາມສະກຸນ</th>
                   <th>ເບີ້ໂທລະສັບ</th>
-                  <th></th>
+                  <!-- <th></th> -->
                 </tr>
               </thead>
               <tbody>
@@ -50,10 +57,10 @@
                     <td>{{ event.department }}</td>        
                     <td>{{ event.name }} </td>
                     <td>{{ event.phone }}</td>
-                    <td>
+                    <!-- <td>
                       <button class="btn btn-danger me-2" @click="showDeleteConfirmation(event._id)"><i class="bi bi-trash3"></i></button>
                       <button class="btn btn-success"><i class="bi bi-pencil-square"></i></button>
-                    </td>
+                    </td> -->
                   </template>
                 </tr>
               </tbody>
@@ -71,7 +78,7 @@ import 'flatpickr/dist/flatpickr.css';
 import axios from 'axios';
 import { format } from 'date-fns';
 import Swal from 'sweetalert2';
-
+import { IP_api } from '../../API_config';
 
 
 export default {
@@ -88,6 +95,8 @@ export default {
       calendarInstance: null,
       apiData: [],
       eventToDelete: null,
+      matchingRoomTitle: '',
+      room: [],
     };
   },
   computed: {
@@ -98,9 +107,9 @@ export default {
       const filteredDate = new Date(date);
       filteredDate.setHours(0, 0, 0, 0);
       return filteredDate >= currentDate;
-    });
+      });
+    },
   },
-},
 
   mounted() {
     const calendarElement = this.$refs.calendar;
@@ -121,8 +130,19 @@ export default {
     });
     this.generateMonthDates();
     this.fetchApiData();
+    this.fetchApiData();
   },
   methods: {
+    fetchRooms() {
+      const apiUrl = `${IP_api}/rooms`;
+      axios.get(apiUrl)
+        .then(response => {
+          this.rooms = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    },
     showDeleteConfirmation(id) {
       Swal.fire({
         title: 'ເຈົ້າຕ້ອງການທີ່ຈະລຶບມັນ ຫຼື ບໍ່?',
@@ -160,18 +180,28 @@ export default {
     },
     // get data form api
     fetchApiData() {
-      axios.get(`http://172.22.3.147:3000/booking/room/${this.roomNumber}/active`)
+      axios.get(`${IP_api}/booking/room/${this.roomNumber}/active`)
       .then((response) => {
         this.apiData = response.data;
       }).catch((err) => {
         console.error(err);
       });
-      
+
+  // 
+    axios.get(`${IP_api}/rooms`)
+    .then((response) => { 
+      this.room = response.data
+      console.log(this.room);
+    }).catch((err) => {
+      console.error(err);
+    });
+
+
       this.updateCardData();
     },
     // delete data form api
     deleteEvent(id) {
-      fetch(`http://172.22.3.147:3000/booking/cancel/${id}`, {
+      fetch(`${IP_api}/booking/cancel/${id}`, {
         method: 'PUT'
       })
       .then(response => response.json())

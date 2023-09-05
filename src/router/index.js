@@ -8,11 +8,6 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/AboutView.vue')
-  },
-  {
     path: '/room/:roomNumber', // Use a dynamic parameter
     name: 'room',
     props: true,
@@ -28,31 +23,39 @@ const routes = [
         name: 'addroom',
         component: () => import('../components/CreateRoom.vue')
       },
+      {
+        path: '/all', // Use a dynamic parameter
+        name: 'all',
+        component: () => import('../components/HomeDash.vue')
+      },
+      {
+        path: '/table', // Use a dynamic parameter
+        name: 'table',
+        component: () => import('../components/TableDash.vue')
+      },
     ]
   },
-  
-  
-  // {
-  //   path: '/room',
-  //   name: 'room',
-  //   props: true,
-  //   component: () => import('../views/Room1.vue')
-  // },
-  // {
-  //   path: '/room2',
-  //   name: 'room2',
-  //   component: () => import('../views/Room2.vue')
-  // },
-  // {
-  //   path: '/room3',
-  //   name: 'room3',
-  //   component: () => import('../views/Room3.vue')
-  // },
   {
-    path: '/room1/bookform',
-    name: 'bookform',
-    component: () => import('../components/BookForm.vue')
+    path: '/booking/:id/update',
+    name: 'update',
+    component: () => import('../components/UpdateBook.vue')
   },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../pages/Login_Page.vue')
+  },
+  {
+    path: '/form/:roomNumber',
+    name: 'form',
+    props: true,
+    component:() => import('../components/BookingForm.vue')
+  },
+  {
+    path: '/updateroom',
+    name: 'updateroom',
+    component:() => import('../components/UpdateRoom.vue')
+  }
 ]
 
 

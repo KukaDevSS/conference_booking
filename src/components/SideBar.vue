@@ -9,35 +9,20 @@
             <p class="p-0">Tel: 020 xxxxxxxx</p>
         </div>
         <div class="mt-4 mx-2">
-            <router-link to="" class="btn btn-outline-light w-100 rounded text-start ps-5">
-                <i class="bi bi-table"></i> Function
+            <router-link to="/all" class="btn btn-outline-light w-100 rounded text-start ps-5">
+                <i class="bi bi-house-fill"></i> Home
             </router-link>
         </div>
         <div class="mt-4 mx-2">
-            <router-link to="" class="btn btn-outline-light w-100 rounded text-start ps-5">
-                <i class="bi bi-table"></i> Function
+            <router-link to="/table" class="btn btn-outline-light w-100 rounded text-start ps-5">
+                <i class="bi bi-table"></i> Rooms
             </router-link>
         </div>
-        <div class="mt-4 mx-2">
+        <!-- <div class="mt-4 mx-2">
             <router-link to="/add-room" class="btn btn-outline-light w-100 rounded text-start ps-5">
             <i class="bi bi-plus-circle-fill"></i> Add Rooms
             </router-link>
-        </div>
-        <div class="mt-4 mx-2">
-            <router-link to="" class="btn btn-outline-light w-100 rounded text-start ps-5">
-                <i class="bi bi-table"></i> Function
-            </router-link>
-        </div>
-        <div class="mt-4 mx-2">
-            <router-link to="" class="btn btn-outline-light w-100 rounded text-start ps-5">
-                <i class="bi bi-table"></i> Function
-            </router-link>
-        </div>
-        <div class="mt-4 mx-2">
-            <router-link to="" class="btn btn-outline-light w-100 rounded text-start ps-5">
-                <i class="bi bi-table"></i> Function
-            </router-link>
-        </div>
+        </div> -->
     </div>
 </template>
 

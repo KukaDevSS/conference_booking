@@ -1,6 +1,6 @@
 
 <template>
-  <div class="">
+  <!-- <div class=""> -->
     <!-- <div class="bg-primary py-2 d-flex ps-5 fixed-top justify-content-between">
       <div>
         <img class="bg-white" src="./assets//Logo-removebg-preview.png" alt="" height="40px">
@@ -12,39 +12,7 @@
    </nav> -->
 
 
-   <div>
-    <div class="modal fade rounded-0" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <!-- <div class="modal-header bg-primary text-white text-center fw-bold shadow">
-              <h1 class="modal-title fs-5 w-100 fw-bold" id="exampleModalToggleLabel">Admin</h1>
-              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div> -->
-            <div class="modal-body">
-              <div class="d-flex justify-content-end">
-                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <h5 class="text-center fw-bold text-uppercase">Admin</h5>
-              <form action="">
-                <div class="my-2 mx-auto">
-                  <input type="text" class="form-control rounded w-75 mx-auto" placeholder="Username">
-                </div>
-                <div class="my-4">
-                  <input type="password" class="form-control rounded w-75 mx-auto" placeholder="Password">
-                </div>
-                <!-- <div class="my-2">
-                  <router-link to="/dashboard"><button class="btn btn-primary form-control rounded-0">Login</button></router-link>
-                </div> -->
-                <div class="my-2">
-                  <router-link class="btn btn-primary w-75 mx-auto d-flex justify-content-center" to="/dashboard">Login</router-link>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <router-view></router-view>
 

@@ -1,13 +1,12 @@
 <template>
-    <div style="margin-top: 48px;">
+    <div class="m-0 p-0" style="margin-top: 0px;">
       <Header />
       <div class="row w-100">
         <div class="col-2">
-          <SideBar />
+          <SideBar/>
         </div>
-        <div class="col-10 vh-100 bg-light p-0 mt-2">
-          <div class="content-section shadow-lg vh-100 mt-1" >
-            <!-- <p class="text-center">show content here</p> -->
+        <div class="col-10 vh-100 bg-light pt-5">
+          <div class="content-section shadow-lg vh-100 mt-1">
             <router-view></router-view>
           </div>
         </div>
@@ -18,6 +17,7 @@
   <script>
   import SideBar from './SideBar.vue';
   import Header from './HeaderDash.vue';
+
   
   export default {
     components: {
