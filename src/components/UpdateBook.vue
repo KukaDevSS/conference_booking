@@ -4,14 +4,14 @@
       <!-- Form content -->
       <form @submit.prevent="updateBooking" action="" class="w-50 mx-auto py-2 px-5 bg-light shadow-lg">
         <div>
-            <p class="text-center text-primary fw-bold">Booking Form.</p>
+            <p class="text-center fw-bold" style="font-size: 20px;">ແກ້ໄຂ</p>
         </div>
         <div class="my-2">
             <label for="">ຫົວຂໍ້ການປະຊຸມ</label>
             <input v-model="bookTitle" type="text" class="form-control" disabled>
         </div>
         <div class="row my-4">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="d-flex">
                   <label class="me-5" for="timeInput">ເວລາເລີ່ມ</label>
                   <!-- <p class="text-danger fw-bold ">{{ bookTimeS }}</p> -->
@@ -21,15 +21,18 @@
                 </select>
                 
             </div>         
-            <div class="col-6">
+            <div class="col-4">
                 <div class="d-flex">
                   <label class="me-5" for="timeInput">ເວລາສິ້ນສຸດ</label>
                   <!-- <p class="text-danger fw-bold">{{ bookTimeE }}</p> -->
                 </div>
                 <select id="timeInput" class="form-control" v-model="bookTimeE">
-                <option v-for="timeOption in formattedTimeOptions" :key="timeOption.value" :value="timeOption.value">{{ timeOption.label }}</option>
-                </select>
-               
+                  <option v-for="timeOption in formattedTimeOptions" :key="timeOption.value" :value="timeOption.value">{{ timeOption.label }}</option>
+                </select>              
+            </div>
+            <div class="col-4">
+              <label for="">ວ.ດ.ປ</label>
+              <input v-model="bookDate" type="date" class="form-control">
             </div>
       </div>
         <div class="my-4">
@@ -169,12 +172,20 @@ export default {
         });
 
         if (response.status === 200) {
-          Swal.fire('Booking updated successfully', '', 'success').then(() => {
-            // Redirect back to the list or wherever needed
-            this.$router.push({ name: 'all' });
-          });
+          Swal.fire({
+          title: 'ແກ້ໄຂການຈອງສຳເລັດ',
+          icon: 'success',
+          confirmButtonText: 'ຕົກລົງ', // Change the text of the "OK" button
+        }).then(() => {
+          // Redirect back to the list or wherever needed
+          this.$router.push({ name: 'all' });
+        });
         } else if(response.status === 409) {
-          Swal.fire(' ຫ້ອງປະຊຸມບໍ່ຫວ່າງ', '', 'error')
+          Swal.fire({
+            title: ' ຫ້ອງປະຊຸມບໍ່ຫວ່າງ', 
+            icon: 'error',
+            confirmButtonText: 'ຕົກລົງ'
+          })
         }
         else {
           Swal.fire('An error occurred', '', 'error');

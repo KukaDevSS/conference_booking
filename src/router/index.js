@@ -1,6 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
+
+const isAuthenticated = () => {
+  const authToken = localStorage.getItem('authToken'); // Replace with your actual token/key name
+  return authToken !== null; // Check if the user is authenticated
+};
+
+
 const routes = [
   {
     path: '/',
@@ -17,6 +24,15 @@ const routes = [
     path: '/dashboard', // Use a dynamic parameter
     name: 'dashboard',
     component: () => import('../components/Dashbroad.vue'),
+    beforeEnter: (to, from, next) => {
+      if (isAuthenticated()) {
+        // If the user is authenticated, allow access to the route
+        next();
+      } else {
+        // If the user is not authenticated, redirect to the login page
+        next('/login');
+      }
+    },
     children: [
       {
         path: '/add-room', // Use a dynamic parameter
@@ -52,7 +68,7 @@ const routes = [
     component:() => import('../components/BookingForm.vue')
   },
   {
-    path: '/updateroom',
+    path: '/updateroom/:id/:roomNumber',
     name: 'updateroom',
     component:() => import('../components/UpdateRoom.vue')
   }

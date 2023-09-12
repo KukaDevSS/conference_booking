@@ -1,6 +1,6 @@
 <template>
   <div class="mt-2">
-    <router-link to="/table"><button class="btn btn-primary ms-4"><i class="bi bi-arrow-left-circle-fill me-2"></i>ໜ້າຫຼັກ</button></router-link>
+    <!-- <router-link to="/table"><button class="btn btn-primary ms-4"><i class="bi bi-arrow-left-circle-fill me-2"></i>ໜ້າຫຼັກ</button></router-link> -->
     <div class="container col-lg-6 shadow-lg rounded">
       <div class="py-4">
         <h1 class="text-center fw-bold">TT..TT</h1>
@@ -22,8 +22,9 @@
           <label for="">ລາຍລະອຽດ</label>
           <input v-model="description" type="text" class="form-control">
         </div>
-        <div class="mt-4">
-          <button type="submit" class="btn btn-primary w-100">ສ້າງຫ້ອງ</button>
+        <div class="mt-4 text-center">
+          <router-link to="/table"><button type="submit" class="btn btn-danger col-lg-5 me-4">ຍົກເລີກ</button></router-link>
+          <button type="submit" class="btn btn-primary col-lg-5">ສ້າງຫ້ອງ</button>
         </div>
       </form>
     </div>

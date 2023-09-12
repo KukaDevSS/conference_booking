@@ -5,7 +5,7 @@
         <div class="col-2">
           <SideBar/>
         </div>
-        <div class="col-10 vh-100 bg-light pt-5">
+        <div class="col-10 vh-100 pt-5">
           <div class="content-section shadow-lg vh-100 mt-1">
             <router-view></router-view>
           </div>

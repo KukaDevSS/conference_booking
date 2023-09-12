@@ -14,8 +14,8 @@
           <div>
             <p class="fw-bold text-center">{{ roomTitle }}</p>
             <div class="d-flex justify-content-around">
-              <p><i class="bi bi-people me-1" style="color: rgb(88, 215, 19);"></i> 20 ທີ່ນັ່ງ</p>
-              <p><i class="bi bi-geo-alt" style="color: rgb(88, 215, 19);"></i> {{ address }}</p>
+              <p><i class="bi bi-people me-1" style="color: #0d4c92"></i> ທີ່ນັ່ງ</p>
+              <p><i class="bi bi-geo-alt" style="color: #0d4c92"></i> {{ address }}</p>
             </div>
             <div class="text-center mt-3">
               <p class="m-0">{{ truncatedDescription }}</p>
@@ -24,7 +24,7 @@
           </div>
           <div class="text-center mt-3">
             <router-link :to="`/room/${roomNumber}`">
-              <button class="btn btn-warning text-white">ເບິ່ງການຈອງ</button>
+              <button class="btn text-white" style="background-color: #0d4c92;">ເບິ່ງການຈອງ</button>
             </router-link>
           </div>
         </div>

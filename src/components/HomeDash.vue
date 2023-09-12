@@ -1,40 +1,54 @@
 <template>
   <div class="container vh-100" style="padding-top: 10px;">
     <div class="w-100">
-      <input v-model="combinedFilter" type="text" class="form-control ps-4 w-25 my-2 mx-auto shadow-lg border-primary" placeholder="ຄົ້ນຫາ...">
+      <input v-model="searchQuery" type="text" class="form-control ps-4 w-25 my-2 mx-auto border-1" placeholder="ຄົ້ນຫາ...">
     </div>
     <div class="my-2 d-flex justify-content-end">
-      <button class="btn btn-primary me-2" @click="showAllData">Show All</button>
-      <button class="btn btn-primary" @click="showDateNowData">Show Date Now</button>
+      <!-- <button class="btn btn-primary me-2" @click="showAllData">Show All</button>
+      <button class="btn btn-primary" @click="showDateNowData">Show Date Now</button> -->
     </div>
-    <table class="table-bordered w-100 bg-light">
-      <thead class="text-center bg-primary text-white">
+    <table class="w-100">
+      <thead class="text-center">
         <tr class="">
-          <th class="py-2">No.</th>
-          <th>ສະຖານະ</th>
-          <th>ເວລາ</th>
-          <th>ຫົວຂໍ້</th>
-          <th>ພາກສ່ວນ</th>
-          <th>ຊື່ຫ້ອງ</th>
-          <th>ຊື່ ແລະ ນາມສະກຸນ</th>
-          <th>ເບີ້ໂທລະສັບ</th>
-          <th>ຈັດການ</th>
+          <th style="border: 1px solid gainsboro;" class="py-2">No.</th>
+          <th style="border: 1px solid gainsboro;">ສະຖານະ</th>
+          <th style="border: 1px solid gainsboro;">ເວລາ</th>
+          <th style="border: 1px solid gainsboro;">ຫົວຂໍ້</th>
+          <th style="border: 1px solid gainsboro;">ພາກສ່ວນ</th>
+          <th style="border: 1px solid gainsboro;">ຊື່ຫ້ອງ</th>
+          <th style="border: 1px solid gainsboro;">ຊື່ ແລະ ນາມສະກຸນ</th>
+          <th style="border: 1px solid gainsboro;">ເບີ້ໂທລະສັບ</th>
+          <th style="border: 1px solid gainsboro;">ຈັດການ</th>
         </tr>
       </thead>
       <tbody class="text-center">
+        <!-- <tr v-for="(book,index) in filteredBookAll" :key="book._id"> -->
         <tr v-for="(book,index) in displayedBookAll" :key="book._id">
           <!-- <td class="py-3">{{ index + 1 }}</td> -->
-          <td class="py-3">{{ (currentPage - 1) * rowsPerPage + index + 1 }}</td>
-          <td :class="{'btn btn-success btn-sm mt-2 py-2': book.isActive, 'btn btn-danger btn-sm mt-2 py-2': !book.isActive}">
-            {{ book.isActive ? 'Active' : 'Deactivate' }}
+          <td style="border: 1px solid gainsboro;" class="py-3">{{ (currentPage - 1) * rowsPerPage + index + 1 }}</td>
+          <!-- <td style="border: 1px solid gainsboro; margin: 10px; padding: 0;">
+            <div class="p-2" :class="{'bg-success rounded mx-1 text-white': book.isActive, 'bg-danger rounded mx-1 text-white': !book.isActive}" >
+              {{ book.isActive ? 'Active' : 'Deactivate' }}
+            </div>
+          </td> -->
+          <!-- <td
+            style="border: 1px solid gainsboro; margin: 10px; padding: 0px;">
+            <div class="p-1 mx-1" style="color: #03c988; border-radius: 100px; font-weight: 400;" :style="{ 'background-color': book.isActive ? '#e5f9db' : '#ff7272'}">
+              {{ book.isActive ? 'Active' : 'Deactivate' }}
+            </div>
+          </td> -->
+          <td style="border: 1px solid gainsboro; margin: 10px; padding: 0px;">     
+              <div class="py-1 p-0 mx-1" :style="{'background-color': book.isActive ? '#e5f9db' : '#fad4d4','color': book.isActive ? '#388e3c' : 'red' }" style="border-radius: 100px; font-weight: 400;" >
+                {{ book.isActive ? 'Active' : 'Deactivate' }}
+              </div>
           </td>
-          <td>{{ formatDate(book.date) }} > {{ book.startTime }} - {{ book.endTime }}</td>
-          <td>{{ book.title }}</td>
-          <td>{{ book.department }}</td>
-          <td>{{ book.title_room }}</td>
-          <td>{{ book.name }}</td>
-          <td>{{ book.phone }}</td>
-          <td>
+          <td style="border: 1px solid gainsboro;">{{ formatDate(book.date) }} > {{ book.startTime }} - {{ book.endTime }}</td>
+          <td style="border: 1px solid gainsboro;">{{ book.title }}</td>
+          <td style="border: 1px solid gainsboro;">{{ book.department }}</td>
+          <td style="border: 1px solid gainsboro;">{{ book.title_room }}</td>
+          <td style="border: 1px solid gainsboro;">{{ book.name }}</td>
+          <td style="border: 1px solid gainsboro;">{{ book.phone }}</td>
+          <td style="border: 1px solid gainsboro;">
           <div class="dropdown">
               <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">     
                   <i class="bi bi-three-dots-vertical"></i>
@@ -51,7 +65,7 @@
       </tbody>
     </table>
     <div class="mt-4">
-      <nav aria-label="Page navigation">
+      <!-- <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
           <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
             <button class="page-link" @click="previousPage" aria-label="Previous">
@@ -67,7 +81,24 @@
             </button>
           </li>
         </ul>
-      </nav>
+      </nav> -->
+      <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
+          <button class="page-link" @click="previousPage" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </button>
+        </li>
+        <li class="page-item" v-for="page in visiblePageRange" :key="page" :class="{ 'active': currentPage === page }">
+          <button class="page-link" @click="goToPage(page)">{{ page }}</button>
+        </li>
+        <li class="page-item" :class="{ 'disabled': currentPage === totalPages }">
+          <button class="page-link" @click="nextPage" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
     </div>
   </div>
 </template>
@@ -86,19 +117,40 @@ export default {
       bookAll:[],
       currentPage: 1,
       rowsPerPage: 8,
+      searchQuery: '',
+      showDateNowData: false,
     };
   },
   computed:{
+    visiblePageRange() {
+      const maxVisibleButtons = 5; // Adjust this value as needed
+      const startPage = Math.max(this.currentPage - Math.floor(maxVisibleButtons / 2), 1);
+      const endPage = Math.min(startPage + maxVisibleButtons - 1, this.totalPages);
+      const pageRange = [];
+      for (let i = startPage; i <= endPage; i++) {
+        pageRange.push(i);
+      }
+      return pageRange;
+    },
     displayedBookAll() {
-      // Filter data based on the value of showDateNow
-      const filteredData = this.showDateNow ? this.bookAll.filter(book => isDateNow(book.date)) : this.bookAll;
-
       const startIndex = (this.currentPage - 1) * this.rowsPerPage;
       const endIndex = startIndex + this.rowsPerPage;
-      return filteredData.slice(startIndex, endIndex);
+      return this.filteredBookAll.slice(startIndex, endIndex);
     },
     totalPages() {
       return Math.ceil(this.bookAll.length / this.rowsPerPage);
+    },
+    filteredBookAll() {
+      const query = this.searchQuery.toLowerCase();
+      return this.bookAll.filter((book) => {
+        return (
+          book.title.toLowerCase().includes(query) ||
+          book.department.toLowerCase().includes(query) ||
+          book.title_room.toLowerCase().includes(query) ||
+          book.name.toLowerCase().includes(query) ||
+          book.phone.toLowerCase().includes(query)
+        );
+      });
     },
   },
   methods: {
@@ -129,24 +181,24 @@ export default {
     },
     // 
     async deleteEvent(id) {
-  try {
-    const response = await fetch(`${IP_api}/booking/cancel/${id}`, {
-      method: 'PUT'
-    });
+      try {
+        const response = await fetch(`${IP_api}/booking/cancel/${id}`, {
+          method: 'PUT'
+        });
 
-    if (!response.ok) {
-      throw new Error(`Failed to delete event with status: ${response.status}`);
-    }
+        if (!response.ok) {
+          throw new Error(`Failed to delete event with status: ${response.status}`);
+        }
 
-    const data = await response.json();
-    console.log(data.message);
+        const data = await response.json();
+        console.log(data.message);
 
-    location.reload();
-  } catch (error) {
-    console.error('Error deleting event:', error);
-    // Handle the error gracefully, show a user-friendly message, etc.
-  }
-},
+        location.reload();
+      } catch (error) {
+        console.error('Error deleting event:', error);
+        // Handle the error gracefully, show a user-friendly message, etc.
+      }
+    },
 
     showDeleteConfirmation(id) {
       Swal.fire({
@@ -169,7 +221,8 @@ export default {
     getBookAll() {
       axios.get(`${IP_api}/booking`)
       .then((response) => {
-        this.bookAll = response.data
+        // this.bookAll = response.data
+        this.bookAll = response.data.reverse();
       }).catch((err) => {
         console.error(err)
       });
@@ -178,6 +231,7 @@ export default {
   mounted() {
     this.getBookAll()
     this.getRooms()
+
   },
 };
 </script>
@@ -194,5 +248,4 @@ export default {
 .show .dropdown-menu {
   transform: translateX(0);
 }
-
 </style>

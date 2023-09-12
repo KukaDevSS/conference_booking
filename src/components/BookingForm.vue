@@ -3,7 +3,7 @@
       <div class="container w-100 vh-100 my-auto d-flex align-items-center">
         <form @submit.prevent="createBooking" action="" class="w-50 mx-auto py-2 px-5 bg-light shadow-lg">
           <div class="my-2">
-              <label for="">ຫົວຂໍ້ການປະຊຸມ{{ roomNumber }}</label>
+              <label for="">ຫົວຂໍ້ການປະຊຸມ</label>
               <input v-model="bookTitle" type="text" class="form-control">
           </div>
           <div class="row">
@@ -141,13 +141,14 @@ export default {
           Swal.fire('ການຈອງຂອງທ່ານສຳເລັດ', '', 'success').then(() => {
           // setTimeout(() => {
              
+          this.$router.go(-1);
             
           // }, 1000);
-          window.history.back(); 
-          window.location.reload();
+          // window.history.back(); 
+          // window.location.reload();
          });
-         await new Promise(resolve => setTimeout(resolve, 1000));
-          window.history.back();
+        //  await new Promise(resolve => setTimeout(resolve, 1000));
+        //   window.history.back();
         } else if (response.status === 409) {
           Swal.fire('ຫ້ອງປະຊຸມບໍ່ຫວ່າງ', 'ກະລຸນາປ່ຽນເວລາຂອງທ່ານ', 'error');
         } else {

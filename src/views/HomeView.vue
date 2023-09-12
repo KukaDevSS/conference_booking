@@ -1,11 +1,12 @@
 <template>
   <!-- <p class="text-center text-uppercase fw-bold">Home</p> -->
   <div>
-    <div class="bg-primary py-2 d-flex ps-5 fixed-top justify-content-between align-items-center">
-      <div>
-        <p class="text-white fw-bold m-0 text-uppercase" style="font-size: 18px;">conference booking</p>    
+    <div class="py-1 d-flex ps-5 fixed-top justify-content-between align-items-center" style="background-color: #59c1bd;">
+      <div class="d-flex">
+        <img style="height: 45px;" src="../assets/SXR.png" alt="">
+        <p class="text-white m-0 text-uppercase ps-1" style="font-size: 14px;padding-top: 11px;font-weight: 700;">SOKXAY GROUP</p>    
       </div>
-      <router-link to="/login"><button class="btn btn-light me-5"><i class="bi bi-box-arrow-in-right pe-2"></i>ເຂົ້າສູ່ລະບົບ</button></router-link>
+      <router-link to="/login"><button class="btn btn-outline-light text-black me-5" style=" btn-outline-light:hover{}"><i class="bi bi-box-arrow-in-right pe-2"></i>ເຂົ້າສູ່ລະບົບ</button></router-link>
     </div>
   </div>
   <p class="mt-5"></p>
@@ -88,7 +89,10 @@ export default {
 </script>
 
 <style>
-
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap');
+.hover-button:hover{
+  background-color: #0d4c92;
+}
 </style>
 
 

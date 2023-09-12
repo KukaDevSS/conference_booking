@@ -2,22 +2,20 @@
   <div class="container-fluid">
     <div class="row">
       <div class=" col-lg-3">
-        <div class="calendar-container fixed-top" style="height: 100vh; margin-top: 0px; background-color: beige;">
+        <div class="calendar-container fixed-top" style="height: 100vh; margin-top: 0px; background-color: rgb(164, 242, 213);">
           <div class=" ">
-            <router-link to="/"><button class="btn btn-warning"><i class="bi bi-arrow-left-circle me-1"></i>ໜ້າຫຼັກ</button></router-link>
+            <router-link to="/"><button class="btn text-white" style="background-color: #0d4c92;"><i class="bi bi-arrow-left-circle me-1"></i>ໜ້າຫຼັກ</button></router-link>
             <div class="mt-4 ms-0 p-0">
-              <ul class="m-0 p-0">
-                <li class="fw-bolder pt-2 m-0 list-unstyled text-center" style="font-size: 30px;">{{ apiData.length > 0 ? apiData[0].room_title : '' }}</li>
-                <!-- <li class="fw-bolder pt-2 m-0 list-unstyled text-center" style="font-size: 30px;">
-                  {{ apiData.length > 0 ? apiData[0].room_title : 'No Room Title Available' }}
-                </li> -->
-              </ul>
+                <!-- <li class="fw-bolder pt-2 m-0  text-center" style="font-size: 30px;">room title</li> -->
+                <div v-for="rm in room" :key="rm.id">
+                  <p v-if="rm.roomNumber == roomNumber" class="text-center fw-bold" style="font-size: 30px;">{{ rm.title_room }}</p>
+                </div>
             </div>
           </div>
           <div>
-            <router-link :to="`/form/${roomNumber}`"><button class="btn btn-primary w-100 mt-3">ຈອງຫ້ອງປະຊຸມ</button></router-link>
+            <router-link :to="`/form/${roomNumber}`"><button class="btn w-100 text-white mt-3" style="background-color: #0d4c92;">ຈອງຫ້ອງປະຊຸມ</button></router-link>
             <div ref="calendar" class="w-100" style="margin-top: 43px;"></div>
-            <button class="btn btn-warning mt-4 w-100" @click="setToDateNow">Today</button>
+            <button class="btn text-white mt-4 w-100" style="background-color: #0d4c92;" @click="setToDateNow">ມື້ນີ້</button>
           </div>
         </div>
       </div>
@@ -25,16 +23,20 @@
         <!-- <div class="border my-2 rounded"  :class="{ 'highlighted-card': isSameDate(date, new Date()), 'non-matching-card': !isSameDate(date, new Date()) }"  v-for="date in monthDates" :key="date"> -->
           <div class="border my-2 rounded" :class="{ 'highlighted-card': isSameDate(date, new Date()), 'non-matching-card': !isSameDate(date, new Date()) }" v-for="date in futureMonthDates" :key="date">
           <div class="d-flex align-items-center mb-3 mt-2">
-            <p class="me-3 fw-bold ms-2 bg-warning text-center mt-3" style="font-size: 24px; height: 40px; width: 40px;border-radius: 5px;">{{ date.getDate() }}</p>
-              <div class="d-flex">
-                <p class="m-0 me-2">{{ date.toLocaleString('en-US', { weekday: 'long' }) }}</p>
-                <p class="m-0">{{ date.toLocaleString('en-US', { month: 'long', year: 'numeric' }) }}</p>
+            <p class="me-3 fw-bold ms-2 text-center text-white mt-3" style="background-color:#0b4c92;font-size: 24px; height: 40px; width: 40px;border-radius: 5px;">{{ date.getDate() }}</p>
+                <!-- <div class="d-flex fw-bold">
+                  <p class="m-0 me-2">{{ date.toLocaleString('en-US', { weekday: 'long' }) }}</p>
+                  <p class="m-0">{{ date.toLocaleString('en-US', { month: 'long', year: 'numeric' }) }}</p>
+                </div>            -->
+                <div class="d-flex fw-bold">
+                    <p class="m-0 me-2">{{ date.toLocaleString('lo-LA', { weekday: 'long' }) }}</p>
+                    <p class="m-0">{{ date.toLocaleString('lo-LA', { month: 'long', year: 'numeric' }) }}</p>
+                </div>
               </div>
-          </div>
           <div class="container-fluid">
             <table class="table table-bordered table-hover w-100 bg-light">
-              <thead class="">
-                <tr class="text-center" style="font-size: 14px;">
+              <thead class="" style="background-color: rgb(255, 255, 255);">
+                <tr class="text-center fw-bold" style="font-size: 14px">
                   <th>ວັນ,ເດືອນ,ປີ</th>
                   <th>ເວລາເລີ່ມ - ເວລາສິ້ນສຸດ</th>
                   <th>ຫົວຂໍ້ການປະຊຸມ</th>
@@ -44,7 +46,7 @@
                   <!-- <th></th> -->
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="" style="background-color: white;">
                 <tr class="text-center" v-for="event in apiData" :key="event.startTime">
                   <template v-if="isSameDate(event.date, date)">                 
                     <td>
@@ -131,6 +133,7 @@ export default {
     this.generateMonthDates();
     this.fetchApiData();
     this.fetchApiData();
+    console.log('roomNumber:' +this.roomNumber);
   },
   methods: {
     fetchRooms() {
@@ -183,6 +186,7 @@ export default {
       axios.get(`${IP_api}/booking/room/${this.roomNumber}/active`)
       .then((response) => {
         this.apiData = response.data;
+        console.log(this.apiData);
       }).catch((err) => {
         console.error(err);
       });
@@ -239,7 +243,7 @@ export default {
 .sidebar {
   width: 370px;
   height: 100vh;
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
   padding: 20px;
 }
 
@@ -251,10 +255,12 @@ export default {
   padding: 0px;
 }
 .highlighted-card {
-  background-color: rgb(254, 254, 171);
+  /* background-color: rgb(255, 255, 148); */
+  background-color: rgb(164, 242, 213)
 }
 .non-matching-card {
-  background-color: beige; /* You can adjust the color as needed */
+  /* background-color: rgb(250, 250, 208);  */
+  background-color: #def5ef
 }
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Lobster&family=Noto+Sans+Lao&family=Noto+Serif+Lao:wght@900&family=Oswald:wght@700&family=Tapestry&display=swap');
 *{
